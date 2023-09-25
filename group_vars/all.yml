@@ -88,6 +88,7 @@ supported_os:
     versions:
       - 8.7
       - 8.6
+      - 9.2
   CentOS:
     versions:
       - 7.9
