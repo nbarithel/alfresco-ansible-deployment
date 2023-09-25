@@ -86,9 +86,9 @@ supported_os:
       - 7.6
   Rocky:
     versions:
+      - 9.2
       - 8.7
       - 8.6
-      - 9.2
   CentOS:
     versions:
       - 7.9
