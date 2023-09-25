@@ -1,0 +1,17 @@
+---
+imagemagick_version: 7.1.0-16
+
+utils_transform:
+  - libX11-xcb
+  - cairo
+  - cups-libs
+  - libSM
+  - unzip
+  - which
+  - fontconfig
+  - dejavu-fonts-common
+  - fontpackages-filesystem
+  - freetype
+  - libpng
+  - dejavu-sans-fonts
+  - perl-Image-ExifTool
