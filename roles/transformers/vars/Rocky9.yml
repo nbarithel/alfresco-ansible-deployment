@@ -12,7 +12,6 @@ utils_transform:
   - unzip
   - which
   - fontconfig
-  - dejavu-fonts-common
   - fontpackages-filesystem
   - freetype
   - libpng
