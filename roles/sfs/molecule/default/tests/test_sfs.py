@@ -20,11 +20,12 @@ def get_ansible_vars(host):
     ansible_vars.update(host.ansible("include_vars", common_defaults)["ansible_facts"]["common_defaults"])
     return ansible_vars
 
-def test_sfs_service_is_running_and_enabled(host):
+def test_sfs_service_is_running_and_enabled(host, get_ansible_vars):
     """Check sfs service"""
-    sfs = host.service("alfresco-shared-fs")
-    assert_that(sfs.is_running)
-    assert_that(sfs.is_enabled)
+    with host.sudo(get_ansible_vars['username']):
+        sfs = host.service("alfresco-shared-fs")
+        assert_that(sfs.is_running)
+        assert_that(sfs.is_enabled)
 
 def test_sfs_log_exists(host, get_ansible_vars):
     "Check that ats-shared-fs.log exists in /var/log/alfresco"

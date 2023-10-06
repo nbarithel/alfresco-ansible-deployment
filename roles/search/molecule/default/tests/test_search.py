@@ -32,9 +32,10 @@ def test_solr_log_exists(host, get_ansible_vars):
 @pytest.mark.parametrize("svc", ["alfresco-search"])
 def test_search_service_running_and_enabled(host, svc):
     """Check alfresco-search service"""
-    alfresco_search = host.service(svc)
-    assert_that(alfresco_search.is_running)
-    assert_that(alfresco_search.is_enabled)
+    with host.sudo():
+        alfresco_search = host.service(svc)
+        assert_that(alfresco_search.is_running)
+        assert_that(alfresco_search.is_enabled)
 
 def test_solr_stats_is_accessible(host):
     """Check that SOLR creates the alfresco and archive cores"""

@@ -28,14 +28,16 @@ def test_aio_log_exists(host, get_ansible_vars):
     with host.sudo(get_ansible_vars['username']):
         assert_that(host.file("{}/ats-ate-aio.log".format(get_ansible_vars["logs_folder"])).exists, get_ansible_vars["logs_folder"])
 
-def test_aio_service(host):
+def test_aio_service(host, get_ansible_vars):
     """Check that Transform AIO is enabled and running"""
-    assert_that(host.service("alfresco-tengine-aio").is_running)
-    assert_that(host.service("alfresco-tengine-aio").is_enabled)
+    with host.sudo(get_ansible_vars['username']):
+        assert_that(host.service("alfresco-tengine-aio").is_running)
+        assert_that(host.service("alfresco-tengine-aio").is_enabled)
 
 def test_aio_config_api(host):
     """Check that Transform AIO transform/config api works"""
     cmd = host.run("curl -iL http://{}:8090/transform/config".format(test_host))
+    print(f"***{cmd}")
     assert_that(cmd.stdout, contains_string("HTTP/1.1 200"))
     assert_that(cmd.stdout, contains_string("pdfRendererOptions"))
     assert_that(cmd.stdout, contains_string("archiveOptions"))

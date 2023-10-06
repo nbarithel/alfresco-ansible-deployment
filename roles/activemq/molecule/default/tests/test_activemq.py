@@ -45,8 +45,9 @@ def test_activemq_home(host, get_ansible_vars):
 
 def test_activemq_service(host):
     """Check that ActiveMQ is enabled and running"""
-    assert_that(host.service("activemq").is_running)
-    assert_that(host.service("activemq").is_enabled)
+    with host.sudo():
+        assert_that(host.service("activemq").is_running)
+        assert_that(host.service("activemq").is_enabled)
 
 def test_activemq_web_console(host, get_ansible_vars):
     "Check that ActiveMQ web console is available and returns a HTTP 200 for the home page"

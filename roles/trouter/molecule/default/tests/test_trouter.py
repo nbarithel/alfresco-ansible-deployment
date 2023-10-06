@@ -20,11 +20,12 @@ def get_ansible_vars(host):
     ansible_vars.update(host.ansible("include_vars", common_defaults)["ansible_facts"]["common_defaults"])
     return ansible_vars
 
-def test_trouter_service_is_running_and_enabled(host):
+def test_trouter_service_is_running_and_enabled(host, get_ansible_vars):
     """Check trouter service"""
-    trouter = host.service("alfresco-transform-router")
-    assert_that(trouter.is_running)
-    assert_that(trouter.is_enabled)
+    with host.sudo(get_ansible_vars['username']):
+        trouter = host.service("alfresco-transform-router")
+        assert_that(trouter.is_running)
+        assert_that(trouter.is_enabled)
 
 def test_trouter_log_exists(host, get_ansible_vars):
     "Check that ats-atr.log exists in /var/log/alfresco"

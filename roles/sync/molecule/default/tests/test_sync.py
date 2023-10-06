@@ -30,8 +30,9 @@ def test_sync_log_exists(host, get_ansible_vars):
 
 def test_sync_service(host):
     """Check that Sync Service is enabled and running"""
-    assert_that(host.service("alfresco-sync").is_running)
-    assert_that(host.service("alfresco-sync").is_enabled)
+    with host.sudo():
+        assert_that(host.service("alfresco-sync").is_running)
+        assert_that(host.service("alfresco-sync").is_enabled)
 
 def test_sync_health(host):
     """Check Sync Service health"""

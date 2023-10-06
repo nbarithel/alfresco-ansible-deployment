@@ -68,9 +68,10 @@ def test_bruteforce_mitigation(host):
 
 def test_repo_service_is_running_and_enabled(host):
     """Check repository service"""
-    repository = host.service("alfresco-content.service")
-    assert_that(repository.is_running)
-    assert_that(repository.is_enabled)
+    with host.sudo():
+        repository = host.service("alfresco-content.service")
+        assert_that(repository.is_running)
+        assert_that(repository.is_enabled)
 
 
 def test_alfresco_log_exists(host):
