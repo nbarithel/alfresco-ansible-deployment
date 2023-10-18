@@ -34,6 +34,11 @@
     - name: Set alfresco url from fqdn_alfresco if available or localhost
       ansible.builtin.set_fact:
         alfresco_url: "{{ known_urls | first | default('http://' ~ nginx_host) }}"
+    - name: Populate identity_url when available
+      when: identity_enabled
+      ansible.builtin.set_fact:
+        identity_url: "{{ alfresco_url }}/auth"
+        identity_http_relative_path: auth
 
 - name: Database Role
   hosts: database
@@ -213,10 +218,6 @@
       when:
         - repo_mtls_required
         - ats_mtls_capable
-    - name: Populate identity_url when available
-      when: identity_enabled
-      ansible.builtin.set_fact:
-        identity_url: "{{ alfresco_url }}/auth"
   roles:
     - role: "../roles/repository"
       repo_keystore: "{{ repository_keystore | default({}) }}"

@@ -11,4 +11,7 @@ identity_keycloak_start_dev: true
 identity_keycloak_proxy_mode: edge
 identity_keycloak_host: localhost
 
+identity_url: null
 identity_known_urls: []
+
+identity_http_relative_path: auth
