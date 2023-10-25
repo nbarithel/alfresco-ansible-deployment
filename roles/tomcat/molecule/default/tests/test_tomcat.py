@@ -7,7 +7,7 @@ from hamcrest import contains_string, assert_that
 def get_ansible_vars(host):
     """Define get_ansible_vars"""
     java_role = "file=../java/vars/main.yml name=java_role"
-    tomcat_role = "file=./vars/main.yml name=tomcat_role"
+    tomcat_role = "file=../../vars/main.yml name=tomcat_role"
     common_vars = "file=../common/vars/main.yml name=common_vars"
     common_defaults = "file=../common/defaults/main.yml name=common_defaults"
     group_vars = "file=../../group_vars/all.yml name=group_vars"

@@ -15,7 +15,7 @@ def get_ansible_vars(host):
     common_vars = "file=../common/vars/main.yml name=common_vars"
     common_defaults = "file=../common/defaults/main.yml name=common_defaults"
     common_hosts = "file=../common/defaults/main.yml name=common_hosts"
-    search_services = "file=./vars/main.yml name=search_services"
+    search_services = "file=../../vars/main.yml name=search_services"
     ansible_vars = host.ansible("include_vars", java_role)["ansible_facts"]["java_role"]
     ansible_vars.update(host.ansible("include_vars", java_role)["ansible_facts"]["java_role"])
     ansible_vars.update(host.ansible("include_vars", common_vars)["ansible_facts"]["common_vars"])

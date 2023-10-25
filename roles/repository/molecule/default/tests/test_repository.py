@@ -14,7 +14,7 @@ test_host = os.environ.get('TEST_HOST')
 @pytest.fixture(scope="module")
 def get_ansible_vars(host):
     """Define get_ansible_vars"""
-    repository_role = "file=./vars/main.yml name=repository_role"
+    repository_role = "file=../../vars/main.yml name=repository_role"
     tomcat_role = "file=../tomcat/vars/main.yml name=tomcat_role"
     java_role = "file=../java/vars/main.yml name=java_role"
     common_vars = "file=../common/vars/main.yml name=common_vars"
