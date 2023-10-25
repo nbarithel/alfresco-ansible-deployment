@@ -30,7 +30,7 @@ provisioner:
   name: ansible
   ansible_args:
     - -e
-    - "@../../tests/molecule/secrets.yml"
+    - "@../../../../tests/molecule/secrets.yml"
     - -e
     - "@../../tests/test-extra-vars.yml"
   config_options:
