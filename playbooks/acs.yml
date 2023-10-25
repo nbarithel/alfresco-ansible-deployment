@@ -25,8 +25,8 @@
     secret_ca_passphrase: "{{ hostvars.localhost.ca_signing_key_passphrase }}"
   ansible.builtin.import_playbook: pki.yml
 
-- name: Setup common facts
-  hosts: repository:identity
+- name: Populate common facts
+  hosts: repository:identity:acc:adw
   gather_facts: false
   roles:
     - role: "../roles/common"
@@ -34,11 +34,13 @@
     - name: Set alfresco url from fqdn_alfresco if available or localhost
       ansible.builtin.set_fact:
         alfresco_url: "{{ known_urls | first | default('http://' ~ nginx_host) }}"
+    - name: Populate identity_enabled
+      ansible.builtin.set_fact:
+        identity_enabled: "{{ ((groups.identity | default([])) + (groups.external_identity | default([]))) | length > 0 }}"
     - name: Populate identity_url when available
       when: identity_enabled
       ansible.builtin.set_fact:
         identity_url: "{{ alfresco_url }}/auth"
-        identity_http_relative_path: auth
 
 - name: Database Role
   hosts: database
@@ -95,6 +97,7 @@
       identity_admin_username: admin
       identity_admin_password: "{{ hostvars.localhost.identity_admin_password }}"
       identity_keycloak_http_port: "{{ ports_cfg.identity.http }}"
+      identity_http_relative_path: auth
       when: not groups.external_identity | default([])
   tasks:
     - name: Configure Realm
@@ -102,6 +105,7 @@
         identity_admin_username: admin
         identity_admin_password: "{{ hostvars.localhost.identity_admin_password }}"
         identity_keycloak_http_port: "{{ ports_cfg.identity.http }}"
+        identity_http_relative_path: auth
         identity_known_urls:
           - "{{ alfresco_url }}"
       ansible.builtin.include_role:
@@ -188,14 +192,6 @@
         mode: "0755"
   tags:
     - search
-
-- name: Populate common facts
-  hosts: repository:acc:adw
-  gather_facts: false
-  tasks:
-    - name: Populate identity_enabled
-      ansible.builtin.set_fact:
-        identity_enabled: "{{ ((groups.identity | default([])) + (groups.external_identity | default([]))) | length > 0 }}"
 
 - name: Alfresco Repository Role
   hosts: repository
