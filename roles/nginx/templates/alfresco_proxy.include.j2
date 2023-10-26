@@ -44,8 +44,8 @@
         include {{ nginx_vhost_path }}/alfresco_proxy_headers.include;
     }
 
-    location /auth/ {
-        proxy_pass http://{{ identity_host }}:{{ ports_cfg.identity.http }}/;
+    location /auth {
+        proxy_pass http://{{ identity_host }}:{{ ports_cfg.identity.http }};
         include {{ nginx_vhost_path }}/alfresco_proxy_headers.include;
     }
 
