@@ -39,3 +39,8 @@ argument_specs:
         default: []
         description: |
           A list of possible origin URLs which are allowed to interact with the configured realm
+      identity_http_relative_path:
+        type: str
+        default:
+        description:
+          Path relative to / for serving resources
