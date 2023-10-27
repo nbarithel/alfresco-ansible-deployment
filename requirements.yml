@@ -13,7 +13,7 @@ collections:
     version: 2.10.0
   # Using our fork until https://github.com/ansible-middleware/keycloak/issues/114
   - name: middleware_automation.keycloak
-    source: https://github.com/gionn/ansible-middleware-keycloak,114-add-more-configs
+    source: https://github.com/gionn/ansible-middleware-keycloak,alfresco-playbook
     type: git
   # molecule ec2 tests
   - name: amazon.aws
