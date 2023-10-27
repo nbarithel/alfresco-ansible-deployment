@@ -39,6 +39,12 @@ argument_specs:
         default: []
         description: |
           A list of possible origin URLs which are allowed to interact with the configured realm
+      identity_url:
+        type: str
+        default:
+        description:
+          Set the base URL for frontend URL and admin console, including scheme, host, port and path.
+          Will override identity_keycloak_host, identity_keycloak_http_port.
       identity_http_relative_path:
         type: str
         default:
